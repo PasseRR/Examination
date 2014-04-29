@@ -7,41 +7,41 @@ import java.util.Queue;
 import java.util.Stack;
 
 /**
- * ×Ö·û´®µÄËÄÔòÔËËã¡£¸ø³öÒ»¸ö×Ö·û´®£¬°üº¬0~9µÄÊı×ÖºÍ+ - * /()µÄÔËËã·û£¬<BR>
- * -½ö´ú±í¼õºÅ²»´ú±í¸ºÊı¡£¾ÙÀıÈçÏÂ£º<BR>
- * ÊäÈë£º1+2*(3-4)<BR>
- * Êä³ö£º-1.<BR>
- * @company Ğ¡Ã×
+ * å­—ç¬¦ä¸²çš„å››åˆ™è¿ç®—ã€‚ç»™å‡ºä¸€ä¸ªå­—ç¬¦ä¸²ï¼ŒåŒ…å«0~9çš„æ•°å­—å’Œ+ - * /()çš„è¿ç®—ç¬¦ï¼Œ<BR>
+ * -ä»…ä»£è¡¨å‡å·ä¸ä»£è¡¨è´Ÿæ•°ã€‚ä¸¾ä¾‹å¦‚ä¸‹ï¼š<BR>
+ * è¾“å…¥ï¼š1+2*(3-4)<BR>
+ * è¾“å‡ºï¼š-1.<BR>
+ * @company å°ç±³
  * @author xiehai
- * @date 2014-2-18 ÏÂÎç03:43:30 
+ * @date 2014-2-18 ä¸‹åˆ03:43:30 
  */
 public class CalculateExpression {
-    /**²Ù×÷·û*/
+    /**æ“ä½œç¬¦*/
     private final char []OPERATOR = {'+', '-', '*', '/', '(', ')'};
-    /**¿Õ×Ö·û´®*/
+    /**ç©ºå­—ç¬¦ä¸²*/
     private final String EMPTY = "";
-    /**×óÀ¨ºÅ*/
+    /**å·¦æ‹¬å·*/
     private final String LEFT_PARENTHESIS = "("; 
-    /**ÓÒÀ¨ºÅ*/
+    /**å³æ‹¬å·*/
     private final String RIGHT_PARENTHESIS = ")";
-    /**¼ÓºÅ*/
+    /**åŠ å·*/
     private final String PLUS_SIGN = "+"; 
-    /**¼õºÅ*/
+    /**å‡å·*/
     private final String HYPHEN_MINUS = "-";
-    /**³ËºÅ*/
+    /**ä¹˜å·*/
     private final String ASTERISK = "*";
-    /**³ıºÅ*/
+    /**é™¤å·*/
     private final String SOLIDUS = "/";
-    /**¾®ºÅ*/
+    /**äº•å·*/
     private final String POUND = "#";
-    /**Êı×Ö0*/
+    /**æ•°å­—0*/
     private final int ZERO = 0;
-    /**Êı×Ö1*/
+    /**æ•°å­—1*/
     private final int ONE = 1;
     private Map<String, Integer> priority;
     
     /** 
-     * ½«×Ö·û´®±í´ïÊ½·Ö¸î³Éµ¥¸öÔªËØ,Ã¿¸öÔªËØÊÇÊı×Ö»ò²Ù×÷·û
+     * å°†å­—ç¬¦ä¸²è¡¨è¾¾å¼åˆ†å‰²æˆå•ä¸ªå…ƒç´ ,æ¯ä¸ªå…ƒç´ æ˜¯æ•°å­—æˆ–æ“ä½œç¬¦
      * @param str
      * @return
      */
@@ -64,25 +64,26 @@ public class CalculateExpression {
 	       }
 	   }
 	}
-	
+
 	return queue;
     }
     /** 
-     * ÅĞ¶Ï±í´ïÊ½ÊÇ·ñºÏ·¨
+     * åˆ¤æ–­è¡¨è¾¾å¼æ˜¯å¦åˆæ³•
      * @param str
      * @return
      */
     private boolean isLeagl(Queue<String> queue){
 	boolean flg = true;
 	boolean isFirst = true;
-	int count = 0;//"("µÄÊıÁ¿
-	int operatorCount = 0;//²Ù×÷·ûµÄÊıÁ¿
-	boolean isSymbol = false;//Ç°Ò»¸ö×Ö·ûÊÇ·ñÊÇ²Ù×÷·û
+	int count = 0;//"("çš„æ•°é‡
+	int operatorCount = 0;//æ“ä½œç¬¦çš„æ•°é‡
+	boolean isSymbol = false;//å‰ä¸€ä¸ªå­—ç¬¦æ˜¯å¦æ˜¯æ“ä½œç¬¦
+	@SuppressWarnings("unused")
 	int i = 0;
 	while(ZERO != queue.size()){
 	    String temp = queue.poll();
 	    if(isFirst){
-		if(ONE == temp.length() && isOperator(temp.charAt(ZERO))){//¿ªÍ·ÊÇ²Ù×÷·û
+		if(ONE == temp.length() && isOperator(temp.charAt(ZERO))){//å¼€å¤´æ˜¯æ“ä½œç¬¦
 		    flg = false;
 		    break;
 		}
@@ -92,12 +93,12 @@ public class CalculateExpression {
 		    if(LEFT_PARENTHESIS.equals(temp)){
 			if(isSymbol){
 			    count ++;
-			}else{//¸ñÊ½Èç£º12(1-5)
+			}else{//æ ¼å¼å¦‚ï¼š12(1-5)
 			    flg = false;
 			    break;
 			}
 		    }else if(RIGHT_PARENTHESIS.equals(temp)){
-			if(isSymbol){//¸ñÊ½Èç£º(A-B*)
+			if(isSymbol){//æ ¼å¼å¦‚ï¼š(A-B*)
 			    flg = false;
 			    break;
 			}
@@ -113,18 +114,18 @@ public class CalculateExpression {
 	    }
 	    i ++;
 	}
-	if(ZERO != count){//À¨ºÅÆ¥Åä´íÎó
+	if(ZERO != count){//æ‹¬å·åŒ¹é…é”™è¯¯
 	    flg = false;
-	}else if(ZERO != operatorCount){//·ûºÅÆ¥Åä´íÎó
+	}else if(ZERO != operatorCount){//ç¬¦å·åŒ¹é…é”™è¯¯
 	    flg = false;
-	}else if(isSymbol){//½áÎ²ÊÇ²Ù×÷·û
+	}else if(isSymbol){//ç»“å°¾æ˜¯æ“ä½œç¬¦
 	    flg = false;
 	}
 	return flg;
     }
     
     /** 
-     * µ±Ç°Î»ÖÃµÄ×Ö·ûÊÇ·ñÊÇ²Ù×÷·û
+     * å½“å‰ä½ç½®çš„å­—ç¬¦æ˜¯å¦æ˜¯æ“ä½œç¬¦
      * @param ch
      * @return
      */
@@ -135,27 +136,27 @@ public class CalculateExpression {
 		flg = true;
 	    }
 	}
-	
+
 	return flg;
     }
     
     /** 
-     * <B>½«²»Í¬µÄ±í´ïÊ½×ª»»ÎªÄæ²¨À¼Ê½(Reverse Polish notation)</B><BR>
-     * Ê×ÏÈĞèÒª·ÖÅä2¸öÕ»£¬Ò»¸ö×÷ÎªÁÙÊ±´æ´¢ÔËËã·ûµÄÕ»S1£¨º¬Ò»¸ö½áÊø·ûºÅ£©£¬<BR>
-     * Ò»¸ö×÷ÎªÊäÈëÄæ²¨À¼Ê½µÄÕ»S2£¨¿ÕÕ»£©£¬S1Õ»¿ÉÏÈ·ÅÈëÓÅÏÈ¼¶×îµÍµÄÔËËã·û#£¬<BR>
-     * ×¢Òâ£¬ÖĞ×ºÊ½Ó¦ÒÔ´Ë×îµÍÓÅÏÈ¼¶µÄÔËËã·û½áÊø¡£¿ÉÖ¸¶¨ÆäËû×Ö·û£¬²»Ò»¶¨·Ç#²»¿É¡£<BR>
-     * ´ÓÖĞ×ºÊ½µÄ×ó¶Ë¿ªÊ¼È¡×Ö·û£¬ÖğĞò½øĞĞÈçÏÂ²½Öè£º<BR>
-     * (1)ÈôÈ¡³öµÄ×Ö·ûÊÇ²Ù×÷Êı£¬Ôò·ÖÎö³öÍêÕûµÄÔËËãÊı£¬¸Ã²Ù×÷ÊıÖ±½ÓËÍÈëS2Õ»<BR>
-     * (2)ÈôÈ¡³öµÄ×Ö·ûÊÇÔËËã·û£¬Ôò½«¸ÃÔËËã·ûÓëS1Õ»Õ»¶¥ÔªËØ±È½Ï£¬<BR>
-     * Èç¹û¸ÃÔËËã·ûÓÅÏÈ¼¶´óÓÚS1Õ»Õ»¶¥ÔËËã·ûÓÅÏÈ¼¶£¬Ôò½«¸ÃÔËËã·û½øS1Õ»£¬·ñÔò£¬<BR>
-     * ½«S1Õ»µÄÕ»¶¥ÔËËã·ûµ¯³ö£¬ËÍÈëS2Õ»ÖĞ£¬Ö±ÖÁS1Õ»Õ»¶¥ÔËËã·ûµÍÓÚ£¨²»°üÀ¨µÈÓÚ£©¸ÃÔËËã·ûÓÅÏÈ¼¶£¬<BR>
-     * Ôò½«¸ÃÔËËã·ûËÍÈëS1Õ»¡£<BR>
-     * (3)ÈôÈ¡³öµÄ×Ö·ûÊÇ"("£¬ÔòÖ±½ÓËÍÈëS1Õ»Õ»¶¥¡£<BR>
-     * (4)ÈôÈ¡³öµÄ×Ö·ûÊÇ")"£¬Ôò½«¾àÀëS1Õ»Õ»¶¥×î½üµÄ"("Ö®¼äµÄÔËËã·û£¬Öğ¸ö³öÕ»£¬ÒÀ´ÎËÍÈëS2Õ»£¬´ËÊ±Å×Æú"("¡£<BR>
-     * (5)ÖØ¸´ÉÏÃæµÄ1~4²½£¬Ö±ÖÁ´¦ÀíÍêËùÓĞµÄÊäÈë×Ö·û<BR>
-     * (6)ÈôÈ¡³öµÄ×Ö·ûÊÇ"#"£¬Ôò½«S1Õ»ÄÚËùÓĞÔËËã·û(²»°üÀ¨"#")£¬Öğ¸ö³öÕ»£¬ÒÀ´ÎËÍÈëS2Õ»¡£<BR>
+     * <B>å°†ä¸åŒçš„è¡¨è¾¾å¼è½¬æ¢ä¸ºé€†æ³¢å…°å¼(Reverse Polish notation)</B><BR>
+     * é¦–å…ˆéœ€è¦åˆ†é…2ä¸ªæ ˆï¼Œä¸€ä¸ªä½œä¸ºä¸´æ—¶å­˜å‚¨è¿ç®—ç¬¦çš„æ ˆS1ï¼ˆå«ä¸€ä¸ªç»“æŸç¬¦å·ï¼‰ï¼Œ<BR>
+     * ä¸€ä¸ªä½œä¸ºè¾“å…¥é€†æ³¢å…°å¼çš„æ ˆS2ï¼ˆç©ºæ ˆï¼‰ï¼ŒS1æ ˆå¯å…ˆæ”¾å…¥ä¼˜å…ˆçº§æœ€ä½çš„è¿ç®—ç¬¦#ï¼Œ<BR>
+     * æ³¨æ„ï¼Œä¸­ç¼€å¼åº”ä»¥æ­¤æœ€ä½ä¼˜å…ˆçº§çš„è¿ç®—ç¬¦ç»“æŸã€‚å¯æŒ‡å®šå…¶ä»–å­—ç¬¦ï¼Œä¸ä¸€å®šé#ä¸å¯ã€‚<BR>
+     * ä»ä¸­ç¼€å¼çš„å·¦ç«¯å¼€å§‹å–å­—ç¬¦ï¼Œé€åºè¿›è¡Œå¦‚ä¸‹æ­¥éª¤ï¼š<BR>
+     * (1)è‹¥å–å‡ºçš„å­—ç¬¦æ˜¯æ“ä½œæ•°ï¼Œåˆ™åˆ†æå‡ºå®Œæ•´çš„è¿ç®—æ•°ï¼Œè¯¥æ“ä½œæ•°ç›´æ¥é€å…¥S2æ ˆ<BR>
+     * (2)è‹¥å–å‡ºçš„å­—ç¬¦æ˜¯è¿ç®—ç¬¦ï¼Œåˆ™å°†è¯¥è¿ç®—ç¬¦ä¸S1æ ˆæ ˆé¡¶å…ƒç´ æ¯”è¾ƒï¼Œ<BR>
+     * å¦‚æœè¯¥è¿ç®—ç¬¦ä¼˜å…ˆçº§å¤§äºS1æ ˆæ ˆé¡¶è¿ç®—ç¬¦ä¼˜å…ˆçº§ï¼Œåˆ™å°†è¯¥è¿ç®—ç¬¦è¿›S1æ ˆï¼Œå¦åˆ™ï¼Œ<BR>
+     * å°†S1æ ˆçš„æ ˆé¡¶è¿ç®—ç¬¦å¼¹å‡ºï¼Œé€å…¥S2æ ˆä¸­ï¼Œç›´è‡³S1æ ˆæ ˆé¡¶è¿ç®—ç¬¦ä½äºï¼ˆä¸åŒ…æ‹¬ç­‰äºï¼‰è¯¥è¿ç®—ç¬¦ä¼˜å…ˆçº§ï¼Œ<BR>
+     * åˆ™å°†è¯¥è¿ç®—ç¬¦é€å…¥S1æ ˆã€‚<BR>
+     * (3)è‹¥å–å‡ºçš„å­—ç¬¦æ˜¯"("ï¼Œåˆ™ç›´æ¥é€å…¥S1æ ˆæ ˆé¡¶ã€‚<BR>
+     * (4)è‹¥å–å‡ºçš„å­—ç¬¦æ˜¯")"ï¼Œåˆ™å°†è·ç¦»S1æ ˆæ ˆé¡¶æœ€è¿‘çš„"("ä¹‹é—´çš„è¿ç®—ç¬¦ï¼Œé€ä¸ªå‡ºæ ˆï¼Œä¾æ¬¡é€å…¥S2æ ˆï¼Œæ­¤æ—¶æŠ›å¼ƒ"("ã€‚<BR>
+     * (5)é‡å¤ä¸Šé¢çš„1~4æ­¥ï¼Œç›´è‡³å¤„ç†å®Œæ‰€æœ‰çš„è¾“å…¥å­—ç¬¦<BR>
+     * (6)è‹¥å–å‡ºçš„å­—ç¬¦æ˜¯"#"ï¼Œåˆ™å°†S1æ ˆå†…æ‰€æœ‰è¿ç®—ç¬¦(ä¸åŒ…æ‹¬"#")ï¼Œé€ä¸ªå‡ºæ ˆï¼Œä¾æ¬¡é€å…¥S2æ ˆã€‚<BR>
      * @param str
-     * @return Äæ²¨À¼Ê½µÄStack
+     * @return é€†æ³¢å…°å¼çš„Stack
      */
     private Stack<String> RPN(String str){
 	Stack<String> operator = new Stack<String>();
@@ -178,14 +179,14 @@ public class CalculateExpression {
 			    number.push(operator.pop());
 			}
 		    }
-		}else{//ÆäËû²Ù×÷·û
+		}else{//å…¶ä»–æ“ä½œç¬¦
 		    String op = operator.peek();
 		    int expP = priority.get(exp);
 		    int opP = priority.get(op);
 		    if(expP > opP ){
 			operator.push(exp);
 		    }else{
-			
+
 			while(true){
 			    op = operator.peek();
 			    opP = priority.get(op);
@@ -207,7 +208,7 @@ public class CalculateExpression {
 	    number.push(operator.pop());
 	}
 	operator.clear();
-	//µ¹Ğò±í´ïÊ½
+	//å€’åºè¡¨è¾¾å¼
 	while(ZERO != number.size()){
 	    operator.push(number.pop());
 	}
@@ -215,7 +216,7 @@ public class CalculateExpression {
     }
     
     /** 
-     * ¼ÆËã±í´ïÊ½µÄÖµ
+     * è®¡ç®—è¡¨è¾¾å¼çš„å€¼
      * @param stack
      * @return
      */
@@ -223,11 +224,11 @@ public class CalculateExpression {
 	Stack<String> left = new Stack<String>();
 	double result = 0d;
 	while(ONE != stack.size()){
-	    String pre = stack.pop();//µÚÒ»¸ö²Ù×÷Êı
-	    String next = stack.pop();//µÚ¶ş¸ö²Ù×÷Êı
-	    String op = stack.pop();//²Ù×÷·û
+	    String pre = stack.pop();//ç¬¬ä¸€ä¸ªæ“ä½œæ•°
+	    String next = stack.pop();//ç¬¬äºŒä¸ªæ“ä½œæ•°
+	    String op = stack.pop();//æ“ä½œç¬¦
 	    char operator = op.charAt(ZERO);
-	    if(isOperator(operator) && ONE == op.length()){//±£Ö¤³¤¶ÈÎª1,ÅÅ³ı¸ºÊıµÄÇé¿ö
+	    if(isOperator(operator) && ONE == op.length()){//ä¿è¯é•¿åº¦ä¸º1,æ’é™¤è´Ÿæ•°çš„æƒ…å†µ
 		switch (operator) {
 		    case '+':
 			result = Double.parseDouble(pre) + Double.parseDouble(next);
@@ -245,11 +246,11 @@ public class CalculateExpression {
         		break;
 		}
 		stack.push(String.valueOf(result));
-		while(ZERO != left.size()){//¼ÆËãÍæºó½«Ã»¼ÆËãµÄ±í´ïÊ½¼ÓÈëÕ»ÖĞ
+		while(ZERO != left.size()){//è®¡ç®—ç©åå°†æ²¡è®¡ç®—çš„è¡¨è¾¾å¼åŠ å…¥æ ˆä¸­
 		    stack.push(left.pop());
 		}
 	    }else{
-		left.push(pre);//½«Õ»¶¥µÄÊı×Ö·ÅÈëÊ£ÓàleftÕ»ÖĞ
+		left.push(pre);//å°†æ ˆé¡¶çš„æ•°å­—æ”¾å…¥å‰©ä½™leftæ ˆä¸­
 		stack.push(op);
 		stack.push(next);
 	    }
@@ -259,7 +260,7 @@ public class CalculateExpression {
     }
     
     /** 
-     * ¹«¹²¼ÆËã·½·¨
+     * å…¬å…±è®¡ç®—æ–¹æ³•
      * @param str
      * @return
      */
@@ -268,9 +269,9 @@ public class CalculateExpression {
     }
     
     /**
-     * ÊÇ·ñÊÇºÏ·¨µÄ±í´ïÊ½<BR>
-     * Ò»¸ö±í´ïÊ½¿ÉÒÔ¿´×÷Ò»¸öÊı×Ö<BR>
-     * ±ÈÈç:A+B, A-(B+A),¾ùÎªÊı×Ö 
+     * æ˜¯å¦æ˜¯åˆæ³•çš„è¡¨è¾¾å¼<BR>
+     * ä¸€ä¸ªè¡¨è¾¾å¼å¯ä»¥çœ‹ä½œä¸€ä¸ªæ•°å­—<BR>
+     * æ¯”å¦‚:A+B, A-(B+A),å‡ä¸ºæ•°å­— 
      * @return
      */
     public boolean isExpression(String str){
@@ -278,7 +279,7 @@ public class CalculateExpression {
     }
     
     /** 
-     * ³õÊ¼»¯ÓÅÏÈ¼¶Map
+     * åˆå§‹åŒ–ä¼˜å…ˆçº§Map
      */
     private void initPriority(){
 	priority = new HashMap<String, Integer>();
@@ -293,6 +294,6 @@ public class CalculateExpression {
     public static void main(String[] args) {
 	String str = "1/(3*3)+2*(3-4.5)";
 	CalculateExpression ce = new CalculateExpression();
-	System.out.println(ce.isExpression(str) ? str + " = "+ ce.calculate(str) : "±í´ïÊ½·Ç·¨!");
+	System.out.println(ce.isExpression(str) ? str + " = "+ ce.calculate(str) : "è¡¨è¾¾å¼éæ³•!");
     }
 }

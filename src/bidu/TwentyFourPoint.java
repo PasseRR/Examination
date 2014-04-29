@@ -17,7 +17,7 @@ package bidu;
  */
 /**
  * @author xiehai
- * @date 2014-2-12 обнГ01:03:12 
+ * @date 2014-2-12 обнГ01:03:12
  */
 public class TwentyFourPoint {
 }
